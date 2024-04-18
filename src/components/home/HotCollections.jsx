@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import axios from "axios";
 
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
-    items: 3,
+    items: 4,
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
@@ -22,10 +23,10 @@ const HotCollections = () => {
   const [nftCollection, setNftCollection] = useState([]);
 
   const getData = async () => {
-    const res = await fetch(
+    const { data } = await axios.get(
       "https://us-central1-nft-cloud-functions.cloudfunctions.net/hotCollections"
     );
-    const data = await res.json();
+
     setNftCollection(data);
   };
 
@@ -36,7 +37,7 @@ const HotCollections = () => {
   return (
     <section id="section-collections" className="no-bottom">
       <div className="container">
-        <div className="row">
+        <div className="">
           <div className="col-lg-12">
             <div className="text-center">
               <h2>Hot Collections</h2>
@@ -45,7 +46,7 @@ const HotCollections = () => {
           </div>
           <Carousel responsive={responsive} infinite={true}>
             {nftCollection.map((nft) => (
-              <div className="p-1" key={nft.id}>
+              <div className="p-1 overflow-hidden" key={nft.id}>
                 <div className="nft_coll">
                   <div className="nft_wrap">
                     <Link to="/item-details">
