@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import axios from "axios";
+import Skeleton from "../UI/Skeleton";
 
 const responsive = {
   desktop: {
@@ -21,6 +22,7 @@ const responsive = {
 
 const HotCollections = () => {
   const [nftCollection, setNftCollection] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const getData = async () => {
     const { data } = await axios.get(
@@ -28,6 +30,7 @@ const HotCollections = () => {
     );
 
     setNftCollection(data);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -45,37 +48,57 @@ const HotCollections = () => {
             </div>
           </div>
           <Carousel responsive={responsive} infinite={true}>
-            {nftCollection.map((nft) => (
-              <div className="p-1 overflow-hidden" key={nft.id}>
-                <div className="nft_coll">
-                  <div className="nft_wrap">
-                    <Link to="/item-details">
-                      <img
-                        src={nft.nftImage}
-                        className="lazy img-fluid"
-                        alt="nft-image"
-                      />
-                    </Link>
+            {loading
+              ? new Array(4).fill(0).map((element, index) => (
+                  <div className="p-1 overflow-hidden" key={index}>
+                    <div className="nft_coll">
+                      <div className="nft_wrap">
+                        <Skeleton width={314} height={200} borderRadius={10} />
+                      </div>
+                      <div className="nft_coll_pp">
+                        <Skeleton width={60} height={60} borderRadius={20} />
+                        <i className="fa fa-check"></i>
+                      </div>
+                      <div className="nft_coll_info">
+                        <Skeleton width={200} height={36} />
+                        <span>
+                          <Skeleton />
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                  <div className="nft_coll_pp">
-                    <Link to="/author">
-                      <img
-                        className="lazy pp-coll"
-                        src={nft.authorImage}
-                        alt="nft-author-image"
-                      />
-                    </Link>
-                    <i className="fa fa-check"></i>
+                ))
+              : nftCollection.map((nft) => (
+                  <div className="p-1 overflow-hidden" key={nft.id}>
+                    <div className="nft_coll">
+                      <div className="nft_wrap">
+                        <Link to="/item-details">
+                          <img
+                            src={nft.nftImage}
+                            className="lazy img-fluid"
+                            alt="nft-image"
+                          />
+                        </Link>
+                      </div>
+                      <div className="nft_coll_pp">
+                        <Link to="/author">
+                          <img
+                            className="lazy pp-coll"
+                            src={nft.authorImage}
+                            alt="nft-author-image"
+                          />
+                        </Link>
+                        <i className="fa fa-check"></i>
+                      </div>
+                      <div className="nft_coll_info">
+                        <Link to="/explore">
+                          <h4>{nft.title}</h4>
+                        </Link>
+                        <span>ERC-{nft.code}</span>
+                      </div>
+                    </div>
                   </div>
-                  <div className="nft_coll_info">
-                    <Link to="/explore">
-                      <h4>{nft.title}</h4>
-                    </Link>
-                    <span>ERC-{nft.code}</span>
-                  </div>
-                </div>
-              </div>
-            ))}
+                ))}
           </Carousel>
         </div>
       </div>
