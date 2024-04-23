@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const NftCard = (
+const NftCard = ({
   id,
   authorId,
   authorImage,
@@ -9,8 +9,8 @@ const NftCard = (
   nftImage,
   title,
   price,
-  likes
-) => {
+  likes,
+}) => {
   return (
     <div
       key={id}
