@@ -34,17 +34,19 @@ const ExploreItems = () => {
       </div>
 
       {exploreNfts.slice(0, renderedItems).map((nft) => (
-        <NftCard
-          id={nft.id}
-          title={nft.title}
-          authorId={nft.authorId}
-          authorImage={nft.authorImage}
-          price={nft.price}
-          likes={nft.likes}
-          nftId={nft.nftId}
-          key={nft.nftId}
-          nftImage={nft.nftImage}
-        />
+        <div className=" col-lg-3 col-md-6 col-sm-6 col-xs-12">
+          <NftCard
+            id={nft.id}
+            title={nft.title}
+            authorId={nft.authorId}
+            authorImage={nft.authorImage}
+            price={nft.price}
+            likes={nft.likes}
+            nftId={nft.nftId}
+            key={nft.nftId}
+            nftImage={nft.nftImage}
+          />
+        </div>
       ))}
 
       {/* {new Array(8).fill(0).map((_, index) => (

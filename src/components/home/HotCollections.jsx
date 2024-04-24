@@ -49,7 +49,7 @@ const HotCollections = () => {
           </div>
           <Carousel responsive={responsive} infinite={true}>
             {loading
-              ? new Array(4).fill(0).map((element, index) => (
+              ? new Array(4).fill(0).map((_, index) => (
                   <div className="p-1 overflow-hidden" key={index}>
                     <div className="nft_coll">
                       <div className="nft_wrap">

@@ -14,8 +14,8 @@ const NftCard = ({
   return (
     <div
       key={id}
-      className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12"
       style={{ display: "block", backgroundSize: "cover" }}
+      className="p-1"
     >
       <div className="nft__item">
         <div className="author_list_pp">
